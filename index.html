@@ -1,27 +1,75 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
-  <head>
-    <title>Todo App</title>
-  </head>
-  <body>
-    
-    
-    
+<head>
+    <meta charset="utf-8" />
+    <title>Fibonacci series</title>
+    <!-------------------CSS-------------------------->
+    <!----------------------------------------------------->
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
 
+    <!--==============================================================-->
+    <!--=========================== header ===========================-->
+    <!--==============================================================-->
+    <div class="bg-dark fixed-top flex-column p-2 text-center">
+        <h3 style="color:#fff">Fibonacci series</h3>
+    </div>
+
+    <!--==============================================================-->
+    <!--=========================== content ===========================-->
+    <!--==============================================================-->
+    <main role="main" style="padding:7rem; background: beige;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-2">
+                    <input type="number" id="fibInput" class="form-control mb-4" onchange="on(this.value)" placeholder="please enter your number" dir="ltr" min="0" />
+
+                    <p>The first <span id="sentences">(n)</span> sentences of the Fibonacci series is: <strong id="series"></strong></p>
+                    <p><span id="nth">(n)</span> nth term of the Fibonacci series is: <strong id="term"></strong></p>
+
+                </div><!-- /col-md-8 -->
+            </div><!-- /row -->
+        </div> <!-- /container -->
+    </main>
 
     <script>
+        function on(n) {
+            const divSeries = document.getElementById('series');
+            divSeries.innerHTML = "";
+            let sentences = document.getElementById('sentences');
+            sentences.innerHTML = n;
+            divSeries.innerHTML = "[ " + fibSeries(n) + " ]";
 
-    function fib(n) {
+            const term = document.getElementById('term');
+            term.innerHTML = "";
+            let nth = document.getElementById('nth');
+            nth.innerHTML = n;
+            term.innerHTML = fibTerm(n);
 
-    const result = [0, 1];
-    for (var i = 2; i < n; i++) {
-       result.push(result[i-2] + result[i-1]);
-      }
-    return result[n-1];
+        }
+        
 
-}
 
-console.log(fib(8)); 
-      </script>
-  </body>
+        function fibTerm(n) {
+
+            let arr = [0, 1];
+            for (let i = 2; i < n + 1; i++) {
+                arr.push(arr[i - 2] + arr[i - 1])
+            }
+            return arr[n];
+        }
+
+
+        function fibSeries(n) {
+                    if (n == 0) return [];
+                if (n == 1) return [0];
+                if (n == 2) return [0, 1];
+
+            const prevSeq = fibSeries(n - 1);
+
+            return prevSeq.concat(prevSeq[n - 2] + prevSeq[n - 3]);
+        }
+    </script>
+</body>
 </html>
